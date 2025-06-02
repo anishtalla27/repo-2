@@ -1,5 +1,42 @@
 ---
 title: "Untitled"
 format: html
+author: Anish Talla
+execute:
+  echo: false
 ---
 
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+```{r}
+library(tidyverse)
+
+# Create a polished scatterplot with annotations
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, color = "gray30", linetype = "dashed") +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "Engine Size vs. Highway Fuel Economy",
+    subtitle = "Larger engines generally have lower fuel efficiency, with SUVs being the least efficient",
+    x = "Engine Displacement (Liters)",
+    y = "Highway MPG",
+    color = "Vehicle Class",
+    caption = "Data from EPA (2008) | mpg dataset"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "gray40"),
+    legend.position = "right",
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(color = "gray50", margin = margin(t = 10))
+  ) +
+  annotate("text", x = 5, y = 40, 
+           label = "SUVs have both\nlarge engines\nand poor mileage", 
+           color = "#8DA0CB", size = 3.5)
+```
